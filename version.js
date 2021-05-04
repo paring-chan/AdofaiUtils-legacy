@@ -32,7 +32,7 @@ const finalVer = [ver.major,ver.minor,ver.patch].join('.')
 
 Info.Version = finalVer
 
-fs.writeFileSync('Info.json', JSON.stringify(Info))
+fs.writeFileSync('Info.json', JSON.stringify(Info, null, 2))
 
 fs.writeFileSync('Repository.json', JSON.stringify({
     Releases: [
@@ -42,7 +42,7 @@ fs.writeFileSync('Repository.json', JSON.stringify({
             DownloadUrl: `https://github.com/pikokr/AdofaiUtils/download/v${Info.Version}/${Info.Id}-${Info.Version}.zip`
         }
     ]
-}))
+}, null, 2))
 
 cp.execSync('git add .')
 cp.execSync(`git commit -m v${Info.Version}`)
