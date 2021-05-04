@@ -13,7 +13,7 @@ namespace AdofaiUtils
         {
             _mod = modEntry;
             _mod.OnToggle = OnToggle;
-
+            
             return true;
         }
 
