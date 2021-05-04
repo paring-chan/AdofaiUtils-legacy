@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using ADOFAI;
@@ -21,7 +22,7 @@ namespace AdofaiUtils
         internal static bool Prefix(scnCLS __instance, ref float ___autoscrollTimer, ref scrCamera ___camera,
             bool ___disablePlanets, bool ___searchMode, ref float ___holdTimer, bool ___changingLevel,
             bool ___instantSelect, string ___levelToSelect, ref string ___newSongKey, ref float ___levelTransitionTimer,
-            ref Coroutine ___loadSongCoroutine)
+            ref Coroutine ___loadSongCoroutine, Dictionary<string, bool> ___loadedLevelIsDeleted)
         {
             void Invoke(MethodBase methodBase, params object[] parameters)
             {
@@ -45,13 +46,20 @@ namespace AdofaiUtils
                     __instance.Refresh();
                     return false;
                 }
-                
+
                 if (Input.GetKeyDown(KeyCode.W))
                 {
                     SteamWorkshop.OpenWorkshop();
                     return false;
                 }
-                
+
+                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    if (___loadedLevelIsDeleted[___levelToSelect]) return false;
+                    __instance.EnterLevel();
+                    return false;
+                }
+
                 if (Input.GetKeyDown(KeyCode.S))
                 {
                     Invoke(_toggleSpeedTrial);
