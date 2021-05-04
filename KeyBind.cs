@@ -41,19 +41,19 @@ namespace AdofaiUtils
                 __instance.controller.responsive = false;
             if (!__instance.controller.paused && !___searchMode && __instance.controller.responsive)
             {
-                if (Input.GetKeyDown(KeyCode.R))
+                if (Input.GetKeyDown(KeyCode.R) && Main.settings.KeyBindSettings.clsKeyBindSettings.Reload)
                 {
                     __instance.Refresh();
                     return false;
                 }
 
-                if (Input.GetKeyDown(KeyCode.W))
+                if (Input.GetKeyDown(KeyCode.W) && Main.settings.KeyBindSettings.clsKeyBindSettings.Workshop)
                 {
                     SteamWorkshop.OpenWorkshop();
                     return false;
                 }
 
-                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                if (Input.GetKeyDown(KeyCode.LeftArrow) && Main.settings.KeyBindSettings.clsKeyBindSettings.EnterMap)
                 {
                     if (___loadedLevelIsDeleted[___levelToSelect]) return false;
                     __instance.EnterLevel();
