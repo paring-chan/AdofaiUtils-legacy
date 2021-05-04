@@ -1,8 +1,6 @@
 ﻿using System.Reflection;
 using UnityModManagerNet;
 using HarmonyLib;
-using Mono.Unix.Native;
-using UnityEngine.EventSystems;
 
 namespace AdofaiUtils
 {
