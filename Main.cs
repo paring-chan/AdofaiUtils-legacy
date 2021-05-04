@@ -8,7 +8,7 @@ namespace AdofaiUtils
     {
         private static Harmony _harmony;
         private static UnityModManager.ModEntry _mod;
-        private static Settings settings;
+        internal static Settings settings;
 
         private static bool Load(UnityModManager.ModEntry modEntry)
         {
