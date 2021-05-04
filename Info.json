@@ -1,8 +1,1 @@
-﻿{
-  "Id": "AdofaiUtils",
-  "DisplayName": "ADOFAI Utils",
-  "Author": "PIKOKR",
-  "Version": "0.0.1",
-  "AssemblyName": "AdofaiUtils.dll",
-  "EntryMethod": "AdofaiUtils.Main.Load"
-}
+{"Id":"AdofaiUtils","DisplayName":"ADOFAI Utils","Author":"PIKOKR","Version":"1.0.0","AssemblyName":"AdofaiUtils.dll","EntryMethod":"AdofaiUtils.Main.Load","Repository":""}
