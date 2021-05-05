@@ -18,6 +18,8 @@ namespace AdofaiUtils
             public bool Editor = true;
             [Draw("맵 바로 입장(왼쪽 방향키)")]
             public bool EnterMap = true;
+            [Draw("맵 정보 보기(I)")]
+            public bool MapInfo = true;
         }
     }
 }
