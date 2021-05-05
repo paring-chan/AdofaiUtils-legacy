@@ -24,7 +24,7 @@ const { findSteamAppById } = require('find-steam-app');
         const zip = archiver('zip', {})
         const stream = fs.createWriteStream(path.join(__dirname, `${info.Id}-${info.Version}.zip`))
         zip.pipe(stream)
-        zip.directory('Release/', '.')
+        zip.directory('Release/', info.Id)
         await zip.finalize()
     } else {
         const appPath = await findSteamAppById(977950)
