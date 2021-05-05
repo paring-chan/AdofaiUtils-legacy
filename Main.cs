@@ -10,25 +10,18 @@ namespace AdofaiUtils
     internal static class Main
     {
         private static Harmony _harmony;
-        private static UnityModManager.ModEntry _mod;
+        internal static UnityModManager.ModEntry Mod;
         internal static Settings settings;
-        private static TextOverlay TextOverlay = new TextOverlay();
 
         private static bool Load(UnityModManager.ModEntry modEntry)
         {
             settings = Settings.Load<Settings>(modEntry);
-            _mod = modEntry;
-            _mod.OnToggle = OnToggle;
+            Mod = modEntry;
+            Mod.OnToggle = OnToggle;
             modEntry.OnGUI = OnGUI;
             modEntry.OnSaveGUI = OnSaveGUI;
-            modEntry.OnUpdate = OnUpdate;
 
             return true;
-        }
-
-        private static void OnUpdate(UnityModManager.ModEntry entry, float f)
-        {
-            TextOverlay.Show();
         }
 
         private static void OnGUI(UnityModManager.ModEntry entry)
@@ -43,7 +36,7 @@ namespace AdofaiUtils
 
         private static bool OnToggle(UnityModManager.ModEntry modEntry, bool value)
         {
-            _mod = modEntry;
+            Mod = modEntry;
 
             if (value) StartTweaks();
             else StopTweaks();
@@ -53,7 +46,7 @@ namespace AdofaiUtils
 
         private static void StartTweaks()
         {
-            _harmony = new Harmony(_mod.Info.Id);
+            _harmony = new Harmony(Mod.Info.Id);
             _harmony.PatchAll(Assembly.GetExecutingAssembly());
         }
 
