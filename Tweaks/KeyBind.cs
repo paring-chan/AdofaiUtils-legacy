@@ -85,7 +85,7 @@ namespace AdofaiUtils.Tweaks
         }
 
         [HarmonyPatch(typeof(scnCLS), "Update")]
-        internal static class KeyBind
+        internal static class ClsKeyBind 
         {
             private static MethodBase _toggleSpeedTrial = typeof(scnCLS).GetMethod("ToggleSpeedTrial", AccessTools.all);
             private static MethodBase _deleteLevel = typeof(scnCLS).GetMethod("DeleteLevel", AccessTools.all);
