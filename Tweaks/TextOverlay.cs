@@ -26,7 +26,7 @@ namespace AdofaiUtils.Tweaks
         
         public override string Render(UnityModManager.ModEntry modEntry)
         {
-            return base.Render(modEntry);
+            return "TEST";
         }
     }
 
