@@ -14,6 +14,8 @@ namespace AdofaiUtils
             public bool Reload = true;
             [Draw("창작마당 열기(W)")]
             public bool Workshop = true;
+            [Draw("에디터 열기(E)")]
+            public bool Editor = true;
             [Draw("맵 바로 입장(왼쪽 방향키)")]
             public bool EnterMap = true;
         }
