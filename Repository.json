@@ -1,1 +1,9 @@
-{"Releases":[{"Id":"AdofaiUtils","Version":"1.0.0","DownloadUrl":"https://github.com/pikokr/AdofaiUtils/download/v1.0.0/AdofaiUtils-1.0.0.zip"}]}
+{
+  "Releases": [
+    {
+      "Id": "AdofaiUtils",
+      "Version": "1.0.1",
+      "DownloadUrl": "https://github.com/pikokr/AdofaiUtils/download/v1.0.1/AdofaiUtils-1.0.1.zip"
+    }
+  ]
+}
