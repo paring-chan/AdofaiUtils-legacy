@@ -6,7 +6,7 @@ using ADOFAI;
 using HarmonyLib;
 using UnityEngine;
 
-namespace AdofaiUtils
+namespace AdofaiUtils.Tweaks
 {
     [HarmonyPatch(typeof(scnCLS), "Update")]
     internal static class KeyBind

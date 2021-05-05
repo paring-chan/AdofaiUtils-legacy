@@ -388,6 +388,7 @@
         <Compile Include="Settings\KeyBindSettings.cs" />
         <Compile Include="Settings\Settings.cs" />
         <Compile Include="Tweaks\KeyBind.cs" />
+        <Compile Include="Tweaks\TextOverlay.cs" />
     </ItemGroup>
     <ItemGroup>
       <Content Include="build.js" />
