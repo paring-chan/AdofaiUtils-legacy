@@ -8,6 +8,33 @@ using UnityEngine;
 
 namespace AdofaiUtils.Tweaks
 {
+    [HarmonyPatch(typeof(scrController), "CheckForSpecialInputKeysOrPause")]
+    internal static class KeyBindCheckForSpecialInputKeysOrPause
+    {
+        internal static bool Prefix(scrController __instance, ref bool __result)
+        {
+            if (__instance.CLSMode)
+            {
+                if (Main.settings.KeyBindSettings.clsKeyBindSettings.EnterMap && Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    __result = true;
+                    return false;
+                }
+                if (Main.settings.KeyBindSettings.clsKeyBindSettings.Workshop && Input.GetKeyDown(KeyCode.W))
+                {
+                    __result = true;
+                    return false;
+                }
+                if (Main.settings.KeyBindSettings.clsKeyBindSettings.Reload && Input.GetKeyDown(KeyCode.R))
+                {
+                    __result = true;
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+    
     [HarmonyPatch(typeof(scnCLS), "Update")]
     internal static class KeyBind {
         private static MethodBase _toggleSpeedTrial = typeof(scnCLS).GetMethod("ToggleSpeedTrial", AccessTools.all);
