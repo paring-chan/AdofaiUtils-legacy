@@ -2,7 +2,7 @@
   "Id": "AdofaiUtils",
   "DisplayName": "ADOFAI Utils",
   "Author": "PIKOKR",
-  "Version": "1.0.2",
+  "Version": "1.0.3",
   "AssemblyName": "AdofaiUtils.dll",
   "EntryMethod": "AdofaiUtils.Main.Load",
   "Repository": ""
