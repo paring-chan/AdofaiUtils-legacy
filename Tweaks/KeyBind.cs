@@ -64,39 +64,39 @@ namespace AdofaiUtils.Tweaks
             {
                 if (__instance.CLSMode)
                 {
-                    if (Main.settings.KeyBindSettings.clsKeyBindSettings.MapInfo &&
+                    if (Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo &&
                         Input.GetKeyDown(KeyCode.I))
                     {
                         __result = true;
                         return false;
                     }
 
-                    if (Main.settings.KeyBindSettings.clsKeyBindSettings.EnterMap &&
+                    if (Main.settings.KeyBindSettings.ClsKeyBindSettings.EnterMap &&
                         Input.GetKeyDown(KeyCode.LeftArrow))
                     {
                         __result = true;
                         return false;
                     }
 
-                    if (Main.settings.KeyBindSettings.clsKeyBindSettings.Workshop && Input.GetKeyDown(KeyCode.W))
+                    if (Main.settings.KeyBindSettings.ClsKeyBindSettings.Workshop && Input.GetKeyDown(KeyCode.W))
                     {
                         __result = true;
                         return false;
                     }
 
-                    if (Main.settings.KeyBindSettings.clsKeyBindSettings.Reload && Input.GetKeyDown(KeyCode.R))
+                    if (Main.settings.KeyBindSettings.ClsKeyBindSettings.Reload && Input.GetKeyDown(KeyCode.R))
                     {
                         __result = true;
                         return false;
                     }
 
-                    if (Main.settings.KeyBindSettings.clsKeyBindSettings.Editor && Input.GetKeyDown(KeyCode.E))
+                    if (Main.settings.KeyBindSettings.ClsKeyBindSettings.Editor && Input.GetKeyDown(KeyCode.E))
                     {
                         __result = true;
                         return false;
                     }
 
-                    if (Main.settings.KeyBindSettings.clsKeyBindSettings.MapInfo && Input.GetKeyDown(KeyCode.I))
+                    if (Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo && Input.GetKeyDown(KeyCode.I))
                     {
                         __result = true;
                         return false;
@@ -203,7 +203,7 @@ namespace AdofaiUtils.Tweaks
                     __instance.controller.responsive = false;
                 if (!___searchMode && __instance.controller.responsive)
                 {
-                    if (Input.GetKeyDown(KeyCode.I) && Main.settings.KeyBindSettings.clsKeyBindSettings.MapInfo)
+                    if (Input.GetKeyDown(KeyCode.I) && Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo)
                     {
                         if (_infoBehavior != null)
                         {
@@ -229,27 +229,27 @@ namespace AdofaiUtils.Tweaks
 
                     if (!__instance.controller.paused)
                     {
-                        if (Input.GetKeyDown(KeyCode.R) && Main.settings.KeyBindSettings.clsKeyBindSettings.Reload)
+                        if (Input.GetKeyDown(KeyCode.R) && Main.settings.KeyBindSettings.ClsKeyBindSettings.Reload)
                         {
                             __instance.Refresh();
                             return false;
                         }
 
-                        if (Input.GetKeyDown(KeyCode.W) && Main.settings.KeyBindSettings.clsKeyBindSettings.Workshop)
+                        if (Input.GetKeyDown(KeyCode.W) && Main.settings.KeyBindSettings.ClsKeyBindSettings.Workshop)
                         {
                             SteamWorkshop.OpenWorkshop();
                             return false;
                         }
 
                         if (Input.GetKeyDown(KeyCode.LeftArrow) &&
-                            Main.settings.KeyBindSettings.clsKeyBindSettings.EnterMap)
+                            Main.settings.KeyBindSettings.ClsKeyBindSettings.EnterMap)
                         {
                             if (___loadedLevelIsDeleted[___levelToSelect]) return false;
                             __instance.EnterLevel();
                             return false;
                         }
 
-                        if (Input.GetKeyDown(KeyCode.E) && Main.settings.KeyBindSettings.clsKeyBindSettings.Editor)
+                        if (Input.GetKeyDown(KeyCode.E) && Main.settings.KeyBindSettings.ClsKeyBindSettings.Editor)
                         {
                             if (___loadedLevelIsDeleted[___levelToSelect]) return false;
                             string levelPath = Path.Combine(__instance.loadedLevelDirs[___levelToSelect],

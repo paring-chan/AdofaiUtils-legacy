@@ -2,10 +2,8 @@
 
 namespace AdofaiUtils
 {
-    [DrawFields(DrawFieldMask.Public)]
-    public class KeyBindSettings
+    public class KeyBindSettingsFields
     {
-        [Draw("CLS", Collapsible = true)] public CLSKeyBindSettings clsKeyBindSettings = new CLSKeyBindSettings();
         
         [DrawFields(DrawFieldMask.Public)]
         public class CLSKeyBindSettings
@@ -21,5 +19,19 @@ namespace AdofaiUtils
             [Draw("맵 정보 보기(I)")]
             public bool MapInfo = true;
         }
+        
+        [DrawFields(DrawFieldMask.Public)]
+        public class EditorKeyBindSettings
+        {
+            [Draw("에디터 나가기(Ctrl+Q)")]
+            public bool Quit = true;
+        }
+    }
+    
+    [DrawFields(DrawFieldMask.Public)]
+    public class KeyBindSettings
+    {
+        [Draw("CLS", Collapsible = true)] public KeyBindSettingsFields.CLSKeyBindSettings ClsKeyBindSettings = new KeyBindSettingsFields.CLSKeyBindSettings();
+        [Draw("에디터", Collapsible = true)] public KeyBindSettingsFields.EditorKeyBindSettings EditorKeyBindSettings = new KeyBindSettingsFields.EditorKeyBindSettings();
     }
 }
