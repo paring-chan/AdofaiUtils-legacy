@@ -5,6 +5,7 @@ using System.IO;
 using System.Reflection;
 using ADOFAI;
 using HarmonyLib;
+using TinyJson;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -107,13 +108,27 @@ namespace AdofaiUtils.Tweaks
 
         internal class InfoBehavior : MonoBehaviour
         {
+            private LevelData map;
+            private string levelId;
+
+            public void SetMap(LevelData _map, string id)
+            {
+                map = _map;
+                levelId = id;
+            }
+            
             private void OnGUI()
             {
                 // var rect = new Rect(Screen.width / 2 - 200, Screen.height / 2 - 200, 400, 400);
                 // GUI.Box(rect, "맵 정보");
                 // GUI.Label(new Rect(Screen.height / 2 - 200, Screen.width / 2 - 200, 400, 100), "테스트");
-                GUILayout.BeginArea(new Rect(100, 100, 100, 100), "맵 정보", GUI.skin.window);
-                GUILayout.TextArea("와 샌즈!");
+                GUILayout.BeginArea(new Rect(Screen.width / 2 - 200, Screen.height / 2 - 100, 400, 200), "맵 정보", GUI.skin.window);
+                GUILayout.Label("제목");
+                GUILayout.TextArea(map.artist + " - " + map.song);
+                GUILayout.Label("제작자");
+                GUILayout.TextArea(map.author);
+                GUILayout.Label("다운로드 링크");
+                GUILayout.TextArea("https://steamcommunity.com/sharedfiles/filedetails/?id=" + levelId);
                 GUILayout.EndArea();
             }
         }
@@ -137,7 +152,7 @@ namespace AdofaiUtils.Tweaks
                 bool ___disablePlanets, bool ___searchMode, ref float ___holdTimer, bool ___changingLevel,
                 ref bool ___instantSelect, string ___levelToSelect, ref string ___newSongKey,
                 ref float ___levelTransitionTimer,
-                ref Coroutine ___loadSongCoroutine, Dictionary<string, bool> ___loadedLevelIsDeleted)
+                ref Coroutine ___loadSongCoroutine, Dictionary<string, bool> ___loadedLevelIsDeleted, Dictionary<string, LevelData> ___loadedLevels)
             {
                 void Invoke(MethodBase methodBase, params object[] parameters)
                 {
@@ -171,6 +186,7 @@ namespace AdofaiUtils.Tweaks
                         else if (!__instance.controller.paused)
                         {
                             _infoBehavior = _infoGameObject.AddComponent<InfoBehavior>();
+                            _infoBehavior.SetMap(___loadedLevels[___levelToSelect], ___levelToSelect);
                             scrController.instance.paused = true;
                             scrController.instance.audioPaused = true;
                             scrController.instance.enabled = false;
