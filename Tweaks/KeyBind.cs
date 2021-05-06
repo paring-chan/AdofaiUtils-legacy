@@ -122,13 +122,34 @@ namespace AdofaiUtils.Tweaks
                 // var rect = new Rect(Screen.width / 2 - 200, Screen.height / 2 - 200, 400, 400);
                 // GUI.Box(rect, "맵 정보");
                 // GUI.Label(new Rect(Screen.height / 2 - 200, Screen.width / 2 - 200, 400, 100), "테스트");
+                var buttonStyle = GUI.skin.button;
+                buttonStyle.stretchWidth = false;
                 GUILayout.BeginArea(new Rect(Screen.width / 2 - 200, Screen.height / 2 - 100, 400, 200), "맵 정보", GUI.skin.window);
                 GUILayout.Label("제목");
+                GUILayout.BeginHorizontal();
                 GUILayout.TextArea(map.artist + " - " + map.song);
+                if (GUILayout.Button("복사", buttonStyle))
+                {
+                    GUIUtility.systemCopyBuffer = map.artist + " - " + map.song;
+                }
+                GUILayout.EndHorizontal();
                 GUILayout.Label("제작자");
+                GUILayout.BeginHorizontal();
                 GUILayout.TextArea(map.author);
+                if (GUILayout.Button("복사", buttonStyle))
+                {
+                    GUIUtility.systemCopyBuffer = map.author;
+                }
+                GUILayout.EndHorizontal();
                 GUILayout.Label("다운로드 링크");
-                GUILayout.TextArea("https://steamcommunity.com/sharedfiles/filedetails/?id=" + levelId);
+                GUILayout.BeginHorizontal();
+                var url = "https://steamcommunity.com/sharedfiles/filedetails/?id=" + levelId;
+                GUILayout.TextArea(url);
+                if (GUILayout.Button("복사", buttonStyle))
+                {
+                    GUIUtility.systemCopyBuffer = url;
+                }
+                GUILayout.EndHorizontal();
                 GUILayout.EndArea();
             }
         }
