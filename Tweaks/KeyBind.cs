@@ -126,10 +126,11 @@ namespace AdofaiUtils.Tweaks
                     buttonStyle = GUI.skin.button;
                     buttonStyle.stretchWidth = false;
                 }
-                
-                GUILayout.BeginArea(new Rect(Screen.width / 2 - 200, Screen.height / 2 - 100, 400, 200), "맵 정보", GUI.skin.window);
 
-                var items = new []
+                GUILayout.BeginArea(new Rect(Screen.width / 2 - 200, Screen.height / 2 - 100, 400, 200), "맵 정보",
+                    GUI.skin.window);
+
+                var items = new[]
                 {
                     new[]
                     {
@@ -147,7 +148,7 @@ namespace AdofaiUtils.Tweaks
                         "https://steamcommunity.com/sharedfiles/filedetails/?id=" + levelId
                     }
                 };
-                
+
                 Main.Mod.Logger.Log(items.ToJson());
                 foreach (var item in items)
                 {
@@ -158,8 +159,10 @@ namespace AdofaiUtils.Tweaks
                     {
                         GUIUtility.systemCopyBuffer = item[1];
                     }
+
                     GUILayout.EndHorizontal();
                 }
+
                 GUILayout.EndArea();
             }
         }
@@ -183,7 +186,8 @@ namespace AdofaiUtils.Tweaks
                 bool ___disablePlanets, bool ___searchMode, ref float ___holdTimer, bool ___changingLevel,
                 ref bool ___instantSelect, string ___levelToSelect, ref string ___newSongKey,
                 ref float ___levelTransitionTimer,
-                ref Coroutine ___loadSongCoroutine, Dictionary<string, bool> ___loadedLevelIsDeleted, Dictionary<string, LevelData> ___loadedLevels)
+                ref Coroutine ___loadSongCoroutine, Dictionary<string, bool> ___loadedLevelIsDeleted,
+                Dictionary<string, LevelData> ___loadedLevels)
             {
                 void Invoke(MethodBase methodBase, params object[] parameters)
                 {
@@ -354,6 +358,33 @@ namespace AdofaiUtils.Tweaks
 
                 __instance.portalAndSign.MoveY(___camera.yGlobal);
                 return false;
+            }
+        }
+
+        [HarmonyPatch(typeof(scnEditor), "Update")]
+        internal static class ScnEditorUpdate
+        {
+            private static MethodBase _tryQuitToMenu = typeof(scnEditor).GetMethod("TryQuitToMenu", AccessTools.all);
+
+            private static bool Prefix(scnEditor __instance)
+            {
+                bool flag1 = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl) ||
+                             Input.GetKey(KeyCode.LeftCommand) || Input.GetKey(KeyCode.RightCommand);
+                bool flag2 = Input.GetKey(KeyCode.Q);
+                bool flag3 = flag1 && flag2;
+                
+                void Invoke(MethodBase methodBase, params object[] parameters)
+                {
+                    methodBase.Invoke(__instance, parameters);
+                }
+
+                if (flag3)
+                {
+                    Invoke(_tryQuitToMenu);
+                    return false;
+                }
+
+                return true;
             }
         }
     }
