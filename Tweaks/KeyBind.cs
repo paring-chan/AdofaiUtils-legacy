@@ -371,7 +371,7 @@ namespace AdofaiUtils.Tweaks
                 bool flag1 = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl) ||
                              Input.GetKey(KeyCode.LeftCommand) || Input.GetKey(KeyCode.RightCommand);
                 bool flag2 = Input.GetKey(KeyCode.Q);
-                bool flag3 = flag1 && flag2;
+                bool flag3 = flag1 && flag2 & Main.settings.KeyBindSettings.EditorKeyBindSettings.Quit;
                 
                 void Invoke(MethodBase methodBase, params object[] parameters)
                 {
