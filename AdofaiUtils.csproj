@@ -387,6 +387,7 @@
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="Settings\KeyBindSettings.cs" />
         <Compile Include="Settings\Settings.cs" />
+        <Compile Include="Tweaks\ClsUtils.cs" />
         <Compile Include="Tweaks\KeyBind.cs" />
     </ItemGroup>
     <ItemGroup>
