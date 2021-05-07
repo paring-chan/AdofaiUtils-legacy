@@ -1,6 +1,6 @@
 ﻿using UnityModManagerNet;
 
-namespace AdofaiUtils
+namespace AdofaiUtils.Settings
 {
     public class KeyBindSettingsFields
     {

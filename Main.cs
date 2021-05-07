@@ -1,9 +1,6 @@
-﻿using System.Globalization;
-using System.Reflection;
-using AdofaiUtils.Tweaks;
+﻿using System.Reflection;
 using UnityModManagerNet;
 using HarmonyLib;
-using UnityEngine;
 
 namespace AdofaiUtils
 {
@@ -11,11 +8,11 @@ namespace AdofaiUtils
     {
         private static Harmony _harmony;
         internal static UnityModManager.ModEntry Mod;
-        internal static Settings settings;
+        internal static Settings.Settings settings;
 
         private static bool Load(UnityModManager.ModEntry modEntry)
         {
-            settings = Settings.Load<Settings>(modEntry);
+            settings = Settings.Settings.Load<Settings.Settings>(modEntry);
             Mod = modEntry;
             Mod.OnToggle = OnToggle;
             modEntry.OnGUI = OnGUI;
