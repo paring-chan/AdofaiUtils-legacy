@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Reflection;
 using ADOFAI;
 using HarmonyLib;
-using TinyJson;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -149,7 +146,6 @@ namespace AdofaiUtils.Tweaks
                     }
                 };
 
-                Main.Mod.Logger.Log(items.ToJson());
                 foreach (var item in items)
                 {
                     GUILayout.Label(item[0]);
@@ -189,6 +185,10 @@ namespace AdofaiUtils.Tweaks
                 ref Coroutine ___loadSongCoroutine, Dictionary<string, bool> ___loadedLevelIsDeleted,
                 Dictionary<string, LevelData> ___loadedLevels)
             {
+                if (_infoGameObject == null)
+                {
+                    _infoGameObject = new GameObject();
+                }
                 void Invoke(MethodBase methodBase, params object[] parameters)
                 {
                     methodBase.Invoke(__instance, parameters);
@@ -204,10 +204,12 @@ namespace AdofaiUtils.Tweaks
                 SteamWorkshop.CheckDownloadInfo();
 
                 if (___disablePlanets)
+                {
                     __instance.controller.responsive = false;
+                }
                 if (!___searchMode && __instance.controller.responsive)
                 {
-                    if (Input.GetKeyDown(KeyCode.I) && Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo)
+                    if (Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Escape) && Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo)
                     {
                         if (_infoBehavior != null)
                         {
@@ -218,7 +220,7 @@ namespace AdofaiUtils.Tweaks
                             scrController.instance.enabled = true;
                             Time.timeScale = 1.0f;
                         }
-                        else if (!__instance.controller.paused)
+                        else if (!__instance.controller.paused && !Input.GetKeyDown(KeyCode.Escape))
                         {
                             _infoBehavior = _infoGameObject.AddComponent<InfoBehavior>();
                             _infoBehavior.SetMap(___loadedLevels[___levelToSelect], ___levelToSelect);
