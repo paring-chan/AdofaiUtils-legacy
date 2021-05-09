@@ -476,6 +476,12 @@ namespace AdofaiUtils.Tweaks
                         Invoke(_refresh, false);
                         return false;
                     }
+                    
+                    if (Input.GetKeyDown(KeyCode.S))
+                    {
+                        Invoke(_toggleSpeedTrial);
+                        return false;
+                    }
 
                     if (Input.GetKeyDown(KeyCode.W) && Main.settings.KeyBindSettings.ClsKeyBindSettings.Workshop)
                     {
@@ -559,13 +565,12 @@ namespace AdofaiUtils.Tweaks
         internal static class ScnEditorUpdate
         {
             private static MethodBase _tryQuitToMenu = typeof(scnEditor).GetMethod("TryQuitToMenu", AccessTools.all);
-            private static MethodBase _QuitToMainMenu = typeof(scnEditor).GetMethod("QuitToMainMenu", AccessTools.all);
 
             private static bool Prefix(scnEditor __instance)
             {
                 bool flag1 = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl) ||
                              Input.GetKey(KeyCode.LeftCommand) || Input.GetKey(KeyCode.RightCommand);
-                bool flag2 = Input.GetKey(KeyCode.Q);
+                bool flag2 = Input.GetKeyDown(KeyCode.Q);
                 bool flag3 = flag1 && flag2 & Main.settings.KeyBindSettings.EditorKeyBindSettings.Quit;
 
                 void Invoke(MethodBase methodBase, params object[] parameters)
@@ -577,7 +582,13 @@ namespace AdofaiUtils.Tweaks
                 {
                     if (Main.R68)
                     {
-                        Invoke(_QuitToMainMenu);
+                        if (GCS.customLevelPaths != null)
+                        {
+                            GCS.sceneToLoad = "scnCLS";
+                            scrUIController.instance.WipeToBlack(WipeDirection.StartsFromRight);
+                        }
+                        else
+                            scrController.instance.QuitToMainMenu();
                     }
                     else
                     {
