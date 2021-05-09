@@ -29,10 +29,14 @@ const { findSteamAppById } = require('find-steam-app');
     } else {
         const appPath = await findSteamAppById(977950)
         const modPath = path.join(appPath, 'Mods', info.Id)
+        const r68ModPath = path.join('G:\\Programs\\Steam\\steamapps\\common\\A Dance of Fir68e and Ice', 'Mods', info.Id)
         rimraf.sync(modPath)
+        rimraf.sync(r68ModPath)
         fs.mkdirSync(modPath)
         fs.copyFileSync(`Release/${info.Id}.dll`, path.join(modPath, info.Id + '.dll'))
         fs.copyFileSync('Release/Info.json', path.join(modPath, 'Info.json'))
+        fs.copyFileSync(`Release/${info.Id}.dll`, path.join(r68ModPath, info.Id + '.dll'))
+        fs.copyFileSync('Release/Info.json', path.join(r68ModPath, 'Info.json'))
     }
     console.log('Successful.')
 })()

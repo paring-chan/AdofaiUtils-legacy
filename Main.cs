@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using UnityModManagerNet;
+﻿using UnityModManagerNet;
 using HarmonyLib;
 using Patch = AdofaiUtils.attributes.Patch;
 

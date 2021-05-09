@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using ADOFAI;
+using AdofaiUtils.attributes;
 using HarmonyLib;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ namespace AdofaiUtils.Tweaks
     {
         private static MethodBase _stopCurrentLevelSong = typeof(scnCLS).GetMethod("StopCurrentLevelSong", AccessTools.all);
 
+        [R71]
         [HarmonyPatch(typeof(scnCLS), "SearchLevels")]
         private static class ScnClsSearchLevels
         {
