@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using ADOFAI;
+using AdofaiUtils.attributes;
 using HarmonyLib;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -16,6 +17,8 @@ namespace AdofaiUtils.Tweaks
 
         private static bool shouldSkipPlay;
 
+        [R68]
+        [R71]
         [HarmonyPatch(typeof(CustomLevel), "LoadAndPlayLevel")]
         internal static class CustomLevelCheckForSpecialInputKeysOrPause
         {
@@ -52,8 +55,9 @@ namespace AdofaiUtils.Tweaks
                 return true;
             }
         }
-
-
+        
+        [R68]
+        [R71]
         [HarmonyPatch(typeof(scrController), "CheckForSpecialInputKeysOrPause")]
         internal static class ScrControllerCheckForSpecialInputKeysOrPause
         {
@@ -163,6 +167,8 @@ namespace AdofaiUtils.Tweaks
             }
         }
 
+        [R68]
+        [R71]
         [HarmonyPatch(typeof(scnCLS), "Update")]
         internal static class ClsKeyBind
         {
@@ -363,6 +369,8 @@ namespace AdofaiUtils.Tweaks
             }
         }
 
+        [R68]
+        [R71]
         [HarmonyPatch(typeof(scnEditor), "Update")]
         internal static class ScnEditorUpdate
         {

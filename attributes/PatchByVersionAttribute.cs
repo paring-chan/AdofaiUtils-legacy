@@ -1,26 +1,52 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using HarmonyLib;
+using Steamworks;
 using UnityEngine;
 
 namespace AdofaiUtils.attributes
 {
     public static class Patch
     {
-        public static Type[] R68Types = { };
-        public static Type[] R71Types = { };
-        
+        internal static List<T> ToArray<T>(IEnumerator<T> enumerator)
+        {
+            var list = new List<T>();
+            while (enumerator.MoveNext())
+            {
+                list.Add(enumerator.Current);
+            }
+
+            return list;
+        }
+
         public static void PatchAll(Harmony harmony)
         {
+            var asm = Assembly.GetExecutingAssembly();
+            var R68 =
+                from t in asm.GetTypes()
+                let attributes = t.GetCustomAttributes(typeof(R68), true)
+                where attributes != null && attributes.Length > 0
+                select t;
+            
+            var R71 =
+                from t in asm.GetTypes()
+                let attributes = t.GetCustomAttributes(typeof(R68), true)
+                where attributes != null && attributes.Length > 0
+                select t;
+
             if (typeof(scrMisc).Assembly.GetType("ADOStartup") == null)
             {
-                foreach (var i in R68Types)
+                foreach (var i in R68)
                 {
                     harmony.CreateClassProcessor(i).Patch();
                 }
             }
             else
             {
-                foreach (var i in R71Types)
+                foreach (var i in R71)
                 {
                     harmony.CreateClassProcessor(i).Patch();
                 }
@@ -31,18 +57,23 @@ namespace AdofaiUtils.attributes
     [AttributeUsage(AttributeTargets.Class)]
     public class R68 : Attribute
     {
-        public R68()
-        {
-            Patch.R68Types.AddItem(GetType());
-        }
+        // public static Type[] Types = { };
+        //
+        // public R68()
+        // {
+        //     Main.Mod.Logger.Log("test");
+        //     Types.AddItem(GetType());
+        // }
     }
     
     [AttributeUsage(AttributeTargets.Class)]
     public class R71 : Attribute
     {
-        public R71()
-        {
-            Patch.R71Types.AddItem(GetType());
-        }
+        // public static Type[] Types = { };
+        //
+        // public R71()
+        // {
+        //     Types.AddItem(GetType());
+        // }
     }
 }

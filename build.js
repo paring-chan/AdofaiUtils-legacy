@@ -33,6 +33,7 @@ const { findSteamAppById } = require('find-steam-app');
         rimraf.sync(modPath)
         rimraf.sync(r68ModPath)
         fs.mkdirSync(modPath)
+        fs.mkdirSync(r68ModPath)
         fs.copyFileSync(`Release/${info.Id}.dll`, path.join(modPath, info.Id + '.dll'))
         fs.copyFileSync('Release/Info.json', path.join(modPath, 'Info.json'))
         fs.copyFileSync(`Release/${info.Id}.dll`, path.join(r68ModPath, info.Id + '.dll'))
