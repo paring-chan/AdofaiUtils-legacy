@@ -39,15 +39,19 @@ namespace AdofaiUtils.attributes
 
             if (typeof(scrMisc).Assembly.GetType("ADOStartup") == null)
             {
+                Main.Mod.Logger.Log("ADOFAI r68 or lower version detected.");
                 foreach (var i in R68)
                 {
+                    Main.Mod.Logger.Log("Patching: " + i.FullName);
                     harmony.CreateClassProcessor(i).Patch();
                 }
             }
             else
             {
+                Main.Mod.Logger.Log("ADOFAI r71 or newer version detected.");
                 foreach (var i in R71)
                 {
+                    Main.Mod.Logger.Log("Patching: " + i.FullName);
                     harmony.CreateClassProcessor(i).Patch();
                 }
             }
