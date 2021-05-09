@@ -9,6 +9,7 @@ namespace AdofaiUtils
         private static Harmony _harmony;
         internal static UnityModManager.ModEntry Mod;
         internal static Settings.Settings settings;
+        public static bool R68 = typeof(scrMisc).Assembly.GetType("ADOStartup") == null;
 
         private static bool Load(UnityModManager.ModEntry modEntry)
         {

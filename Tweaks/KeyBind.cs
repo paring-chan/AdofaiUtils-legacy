@@ -55,7 +55,7 @@ namespace AdofaiUtils.Tweaks
                 return true;
             }
         }
-        
+
         [R68]
         [R71]
         [HarmonyPatch(typeof(scrController), "CheckForSpecialInputKeysOrPause")]
@@ -167,7 +167,6 @@ namespace AdofaiUtils.Tweaks
             }
         }
 
-        [R68]
         [R71]
         [HarmonyPatch(typeof(scnCLS), "Update")]
         internal static class ClsKeyBind
@@ -195,6 +194,7 @@ namespace AdofaiUtils.Tweaks
                 {
                     _infoGameObject = new GameObject();
                 }
+
                 void Invoke(MethodBase methodBase, params object[] parameters)
                 {
                     methodBase.Invoke(__instance, parameters);
@@ -213,9 +213,11 @@ namespace AdofaiUtils.Tweaks
                 {
                     __instance.controller.responsive = false;
                 }
+
                 if (!___searchMode && __instance.controller.responsive)
                 {
-                    if (Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Escape) && Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo)
+                    if (Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Escape) &&
+                        Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo)
                     {
                         if (_infoBehavior != null)
                         {
@@ -275,6 +277,7 @@ namespace AdofaiUtils.Tweaks
                             __instance.editor.SwitchToEditMode();
                             return false;
                         }
+                        
 
                         if (Input.GetKeyDown(KeyCode.S))
                         {
@@ -289,7 +292,9 @@ namespace AdofaiUtils.Tweaks
                         }
 
                         if (Input.GetKeyDown(KeyCode.F))
+                        {
                             Invoke(_toggleSearchMode, true);
+                        }
                         if (Input.GetKeyDown(KeyCode.O))
                             Invoke(_incrementSortType);
                         if (Input.GetKeyDown(KeyCode.Alpha7))
@@ -370,11 +375,191 @@ namespace AdofaiUtils.Tweaks
         }
 
         [R68]
+        [HarmonyPatch(typeof(scnCLS), "Update")]
+        internal static class ScnCLSUpdateR68
+        {
+            private static MethodBase _toggleSpeedTrial = typeof(scnCLS).GetMethod("ToggleSpeedTrial", AccessTools.all);
+            private static MethodBase _deleteLevel = typeof(scnCLS).GetMethod("DeleteLevel", AccessTools.all);
+
+            private static MethodBase _shiftPlanet = typeof(scnCLS).GetMethod("ShiftPlanet", AccessTools.all);
+            private static MethodBase _loadSong = typeof(scnCLS).GetMethod("LoadSong", AccessTools.all);
+            private static MethodBase _refresh = typeof(scnCLS).GetMethod("Refresh", AccessTools.all);
+
+            private static bool Prefix(scnCLS __instance, scrCamera ___camera, bool ___disablePlanets,
+                string ___levelToSelect, ref float ___holdTimer, ref float ___autoscrollTimer, bool ___changingLevel,
+                ref float ___levelTransitionTimer, ref bool ___instantSelect, string ___newSongKey,
+                ref Coroutine ___loadSongCoroutine, Dictionary<string, bool> ___loadedLevelIsDeleted, Dictionary<string, LevelData> ___loadedLevels)
+            {
+                if (_infoGameObject == null)
+                {
+                    _infoGameObject = new GameObject();
+                }
+                
+                void Invoke(MethodBase methodBase, params object[] parameters)
+                {
+                    methodBase.Invoke(__instance, parameters);
+                }
+
+                if (Input.GetKeyDown(KeyCode.Alpha7))
+                {
+                    scnCLS.loadSongMode = (scnCLS.loadSongMode + 1) % 3;
+                    if (scnCLS.loadSongMode == 0)
+                        MonoBehaviour.print((object) "loading all");
+                    if (scnCLS.loadSongMode == 1)
+                        MonoBehaviour.print((object) "not loading mp3s");
+                    if (scnCLS.loadSongMode == 2)
+                        MonoBehaviour.print((object) "loading none");
+                }
+
+                float num1 = (float) Screen.width * 1f / (float) Screen.height;
+                float num2 = __instance.canvasScaler.referenceResolution.x /
+                             __instance.canvasScaler.referenceResolution.y;
+                __instance.canvasScaler.matchWidthOrHeight = (double) num1 >= (double) num2 ? 1f : 0.0f;
+                ___camera.camobj.orthographicSize = 5f * Mathf.Max(1f, num2 / num1);
+                __instance.signContainer.LocalMoveY(___camera.camobj.orthographicSize - 1.4f);
+                SteamIntegration.Instance.CheckCallbacks();
+                SteamWorkshop.CheckDownloadInfo();
+                if (___disablePlanets)
+                    __instance.controller.responsive = false;
+                if (Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Escape) &&
+                    Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo)
+                {
+                    if (_infoBehavior != null)
+                    {
+                        Object.DestroyImmediate(_infoBehavior);
+                        _infoBehavior = null;
+                        scrController.instance.paused = false;
+                        scrController.instance.audioPaused = false;
+                        scrController.instance.enabled = true;
+                        Time.timeScale = 1.0f;
+                    }
+                    else if (!__instance.controller.paused && !Input.GetKeyDown(KeyCode.Escape))
+                    {
+                        _infoBehavior = _infoGameObject.AddComponent<InfoBehavior>();
+                        _infoBehavior.SetMap(___loadedLevels[___levelToSelect], ___levelToSelect);
+                        scrController.instance.paused = true;
+                        scrController.instance.audioPaused = true;
+                        scrController.instance.enabled = false;
+                        Time.timeScale = 0.0f;
+                    }
+
+                    return false;
+                }
+                if (!__instance.controller.paused)
+                {
+                    if (Input.GetKeyDown(KeyCode.LeftArrow) &&
+                        Main.settings.KeyBindSettings.ClsKeyBindSettings.EnterMap)
+                    {
+                        if (___loadedLevelIsDeleted[___levelToSelect]) return false;
+                        __instance.EnterLevel();
+                        return false;
+                    }
+
+                    if (Input.GetKeyDown(KeyCode.E) && Main.settings.KeyBindSettings.ClsKeyBindSettings.Editor)
+                    {
+                        if (___loadedLevelIsDeleted[___levelToSelect]) return false;
+                        string levelPath = Path.Combine(__instance.loadedLevelDirs[___levelToSelect],
+                            "main.adofai");
+                        GCS.sceneToLoad = "scnEditor";
+                        GCS.customLevelPaths = new string[1];
+                        GCS.customLevelPaths[0] = levelPath;
+                        GCS.standaloneLevelMode = false;
+                        shouldSkipPlay = true;
+                        __instance.controller.StartLoadingScene(WipeDirection.StartsFromRight);
+                        __instance.editor.SwitchToEditMode();
+                        return false;
+                    }
+
+                    
+                    if (Input.GetKeyDown(KeyCode.R) && Main.settings.KeyBindSettings.ClsKeyBindSettings.Reload)
+                    {
+                        Invoke(_refresh, false);
+                        return false;
+                    }
+
+                    if (Input.GetKeyDown(KeyCode.W) && Main.settings.KeyBindSettings.ClsKeyBindSettings.Workshop)
+                    {
+                        SteamWorkshop.OpenWorkshop();
+                        return false;
+                    }
+
+                    if (Input.GetKeyDown(KeyCode.Delete))
+                    {
+                        Invoke(_deleteLevel, ___levelToSelect);
+                        return false;
+                    }
+
+                    if (!__instance.controller.moving)
+                    {
+                        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))
+                        {
+                            ___holdTimer += Time.deltaTime;
+                        }
+                        else
+                        {
+                            ___holdTimer = 0.0f;
+                            ___autoscrollTimer = 0.0f;
+                        }
+
+                        if ((double) ___holdTimer > (double) __instance.secondsForHold)
+                        {
+                            ___autoscrollTimer += Time.deltaTime *
+                                                  ((double) ___holdTimer > (double) __instance.secondsForHoldExtra
+                                                      ? 2f
+                                                      : 1f);
+                            if ((double) ___autoscrollTimer > (double) __instance.autoScrollInterval)
+                            {
+                                if (Input.GetKey(KeyCode.UpArrow))
+                                    Invoke(_shiftPlanet, false);
+                                else
+                                    Invoke(_shiftPlanet, true);
+                                ___autoscrollTimer = 0.0f;
+                            }
+                        }
+                        else if (Input.GetKeyDown(KeyCode.UpArrow))
+                            Invoke(_shiftPlanet, false);
+                        else if (Input.GetKeyDown(KeyCode.DownArrow))
+                            Invoke(_shiftPlanet, true);
+                    }
+                }
+
+                if (___changingLevel)
+                {
+                    if ((double) ___levelTransitionTimer >= (___instantSelect
+                        ? (double) __instance.portalTransitionTimeInstant
+                        : (double) __instance.portalTransitionTimeNormal))
+                    {
+                        __instance.DisplayLevel(___levelToSelect);
+                        LevelData loadedLevel = __instance.loadedLevels[___levelToSelect];
+                        if (!string.IsNullOrEmpty(loadedLevel.songFilename))
+                        {
+                            string path = Path.Combine(__instance.loadedLevelDirs[___levelToSelect],
+                                loadedLevel.songFilename);
+                            ___newSongKey = Path.GetFileName(path) + "*external";
+                            if (!path.ToLower().EndsWith(".mp3"))
+                                ___loadSongCoroutine =
+                                    __instance.StartCoroutine(
+                                        (IEnumerator) _loadSong.Invoke(__instance, new[] {path, ___newSongKey}));
+                        }
+
+                        ___instantSelect = false;
+                    }
+                    else
+                        ___levelTransitionTimer += Time.deltaTime;
+                }
+
+                __instance.portalAndSign.MoveY(___camera.yGlobal);
+                return false;
+            }
+        }
+
         [R71]
+        [R68]
         [HarmonyPatch(typeof(scnEditor), "Update")]
         internal static class ScnEditorUpdate
         {
             private static MethodBase _tryQuitToMenu = typeof(scnEditor).GetMethod("TryQuitToMenu", AccessTools.all);
+            private static MethodBase _QuitToMainMenu = typeof(scnEditor).GetMethod("QuitToMainMenu", AccessTools.all);
 
             private static bool Prefix(scnEditor __instance)
             {
@@ -382,7 +567,7 @@ namespace AdofaiUtils.Tweaks
                              Input.GetKey(KeyCode.LeftCommand) || Input.GetKey(KeyCode.RightCommand);
                 bool flag2 = Input.GetKey(KeyCode.Q);
                 bool flag3 = flag1 && flag2 & Main.settings.KeyBindSettings.EditorKeyBindSettings.Quit;
-                
+
                 void Invoke(MethodBase methodBase, params object[] parameters)
                 {
                     methodBase.Invoke(__instance, parameters);
@@ -390,7 +575,14 @@ namespace AdofaiUtils.Tweaks
 
                 if (flag3)
                 {
-                    Invoke(_tryQuitToMenu);
+                    if (Main.R68)
+                    {
+                        Invoke(_QuitToMainMenu);
+                    }
+                    else
+                    {
+                        Invoke(_tryQuitToMenu);
+                    }
                     return false;
                 }
 

@@ -33,11 +33,11 @@ namespace AdofaiUtils.attributes
             
             var R71 =
                 from t in asm.GetTypes()
-                let attributes = t.GetCustomAttributes(typeof(R68), true)
+                let attributes = t.GetCustomAttributes(typeof(R71), true)
                 where attributes != null && attributes.Length > 0
                 select t;
 
-            if (typeof(scrMisc).Assembly.GetType("ADOStartup") == null)
+            if (Main.R68)
             {
                 Main.Mod.Logger.Log("ADOFAI r68 or lower version detected.");
                 foreach (var i in R68)
