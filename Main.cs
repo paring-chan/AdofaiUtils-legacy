@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using UnityModManagerNet;
 using HarmonyLib;
+using Patch = AdofaiUtils.attributes.Patch;
 
 namespace AdofaiUtils
 {
@@ -44,7 +45,10 @@ namespace AdofaiUtils
         private static void StartTweaks()
         {
             _harmony = new Harmony(Mod.Info.Id);
-            _harmony.PatchAll(Assembly.GetExecutingAssembly());
+            
+            Patch.PatchAll(_harmony);
+            
+            // _harmony.PatchAll(Assembly.GetExecutingAssembly());
         }
 
         private static void StopTweaks()
