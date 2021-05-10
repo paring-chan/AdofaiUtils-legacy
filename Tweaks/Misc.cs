@@ -1,9 +1,12 @@
-﻿using HarmonyLib;
+﻿using AdofaiUtils.attributes;
+using HarmonyLib;
 
 namespace AdofaiUtils.Tweaks
 {
     public class Misc
     {
+        [R68]
+        [R71]
         [HarmonyPatch(typeof(scrController), "Update")]
         private static class ScrUIControllerWaitForStartCo
         {
