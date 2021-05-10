@@ -576,13 +576,15 @@ namespace AdofaiUtils.Tweaks
         internal static class ScnEditorUpdate
         {
             private static MethodBase _tryQuitToMenu = typeof(scnEditor).GetMethod("TryQuitToMenu", AccessTools.all);
+            private static MethodBase _resetCustomLevel = typeof(scrController).GetMethod("ResetCustomLevel", AccessTools.all);
 
             private static bool Prefix(scnEditor __instance)
             {
                 bool flag1 = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl) ||
                              Input.GetKey(KeyCode.LeftCommand) || Input.GetKey(KeyCode.RightCommand);
                 bool flag2 = Input.GetKeyDown(KeyCode.Q);
-                bool flag3 = flag1 && flag2 & Main.settings.KeyBindSettings.EditorKeyBindSettings.Quit;
+                bool flag3 = flag1 && flag2 & Main.settings.KeyBindSettings.EditorKeyBindSettings.Quit &&
+                             !__instance.controller.paused;
 
                 void Invoke(MethodBase methodBase, params object[] parameters)
                 {
@@ -596,7 +598,7 @@ namespace AdofaiUtils.Tweaks
                         if (GCS.customLevelPaths != null)
                         {
                             GCS.sceneToLoad = "scnCLS";
-                            scrUIController.instance.WipeToBlack(WipeDirection.StartsFromRight);
+                            scrUIController.instance.WipeToBlack(WipeDirection.StartsFromLeft);
                         }
                         else
                             scrController.instance.QuitToMainMenu();
@@ -606,6 +608,13 @@ namespace AdofaiUtils.Tweaks
                         Invoke(_tryQuitToMenu);
                     }
                     return false;
+                }
+
+                bool flag4 = Input.GetKeyDown(KeyCode.R) && !flag1;
+
+                if (flag4)
+                {
+                    scrController.instance.Restart();
                 }
 
                 return true;

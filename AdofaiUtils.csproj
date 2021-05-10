@@ -396,6 +396,7 @@
     <ItemGroup>
       <Content Include="build.js" />
       <Content Include="Info.json" />
+      <Content Include="LICENSE" />
       <Content Include="Repository.json" />
       <Content Include="version.js" />
     </ItemGroup>
