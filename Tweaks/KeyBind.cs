@@ -63,6 +63,16 @@ namespace AdofaiUtils.Tweaks
         {
             internal static bool Prefix(scrController __instance, ref bool __result)
             {
+                if (__instance.levelEditorMode && !__instance.editor.controller.paused)
+                {
+                    if (Main.settings.KeyBindSettings.CustomPlayKeyBindSettings.Restart &&
+                        Input.GetKeyDown(KeyCode.R))
+                    {
+                        __result = true;
+                        return false;
+                    }
+                }
+                
                 if (__instance.CLSMode)
                 {
                     if (Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo &&
@@ -71,6 +81,7 @@ namespace AdofaiUtils.Tweaks
                         __result = true;
                         return false;
                     }
+                    
 
                     if (Main.settings.KeyBindSettings.ClsKeyBindSettings.EnterMap &&
                         Input.GetKeyDown(KeyCode.LeftArrow))
