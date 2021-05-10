@@ -26,6 +26,11 @@ namespace AdofaiUtils.Settings
             [Draw("에디터 나가기(Ctrl+Q)")]
             public bool Quit = true;
         }
+        
+        public class CustomPlayKeyBindSettings
+        {
+            [Draw("즉시 재시작(R)")] public bool Restart = true;
+        }
     }
     
     [DrawFields(DrawFieldMask.Public)]
@@ -33,5 +38,6 @@ namespace AdofaiUtils.Settings
     {
         [Draw("CLS", Collapsible = true)] public KeyBindSettingsFields.CLSKeyBindSettings ClsKeyBindSettings = new KeyBindSettingsFields.CLSKeyBindSettings();
         [Draw("에디터", Collapsible = true)] public KeyBindSettingsFields.EditorKeyBindSettings EditorKeyBindSettings = new KeyBindSettingsFields.EditorKeyBindSettings();
+        [Draw("커스텀 레벨 플레이", Collapsible = true)] public KeyBindSettingsFields.CustomPlayKeyBindSettings CustomPlayKeyBindSettings = new KeyBindSettingsFields.CustomPlayKeyBindSettings();
     }
 }
