@@ -1,6 +1,6 @@
 ﻿using UnityModManagerNet;
 using HarmonyLib;
-using Patch = AdofaiUtils.attributes.Patch;
+using Patch = AdofaiUtils.Attributes.Patch;
 
 namespace AdofaiUtils
 {

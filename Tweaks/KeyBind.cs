@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using ADOFAI;
-using AdofaiUtils.attributes;
+using AdofaiUtils.Attributes;
 using HarmonyLib;
 using UnityEngine;
 using Object = UnityEngine.Object;

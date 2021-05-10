@@ -1,4 +1,4 @@
-﻿using AdofaiUtils.attributes;
+﻿using AdofaiUtils.Attributes;
 using HarmonyLib;
 
 namespace AdofaiUtils.Tweaks
