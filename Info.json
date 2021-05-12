@@ -5,5 +5,5 @@
   "Version": "1.0.5",
   "AssemblyName": "AdofaiUtils.dll",
   "EntryMethod": "AdofaiUtils.Main.Load",
-  "Repository": ""
+  "Repository": "https://raw.githubusercontent.com/pikokr/AdofaiUtils/master/Repository.json"
 }
