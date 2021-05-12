@@ -43,18 +43,15 @@ namespace AdofaiUtils.Settings
 
     public class KeyBindSetting
     {
-        private KeyCode _keyCode;
-        
         public KeyBindSetting(KeyCode keyCode, bool defaultEnabled = true)
         {
-            _keyCode = keyCode;
             _key = new KeyBinding {keyCode = keyCode};
             Enabled = defaultEnabled;
         }
         
         [Draw("")] public bool Enabled;
 
-        public KeyCode Key => _key.keyCode;
+        public bool Down => _key.Down();
 
         [Draw("키 설정")] private KeyBinding _key;
     }

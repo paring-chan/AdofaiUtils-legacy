@@ -66,7 +66,7 @@ namespace AdofaiUtils.Tweaks
                 if (__instance.levelEditorMode && !__instance.editor.controller.paused)
                 {
                     if (Main.settings.KeyBindSettings.CustomPlayKeyBindSettings.Restart.Enabled &&
-                        Input.GetKeyDown(Main.settings.KeyBindSettings.CustomPlayKeyBindSettings.Restart.Key))
+                        Main.settings.KeyBindSettings.CustomPlayKeyBindSettings.Restart.Down)
                     {
                         __result = true;
                         return false;
@@ -76,7 +76,7 @@ namespace AdofaiUtils.Tweaks
                 if (__instance.CLSMode)
                 {
                     if (Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo.Enabled &&
-                        Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo.Key))
+                        Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo.Down)
                     {
                         __result = true;
                         return false;
@@ -84,35 +84,35 @@ namespace AdofaiUtils.Tweaks
 
 
                     if (Main.settings.KeyBindSettings.ClsKeyBindSettings.EnterMap.Enabled &&
-                        Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.EnterMap.Key))
+                        Main.settings.KeyBindSettings.ClsKeyBindSettings.EnterMap.Down)
                     {
                         __result = true;
                         return false;
                     }
 
                     if (Main.settings.KeyBindSettings.ClsKeyBindSettings.Workshop.Enabled &&
-                        Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.Workshop.Key))
+                        Main.settings.KeyBindSettings.ClsKeyBindSettings.Workshop.Down)
                     {
                         __result = true;
                         return false;
                     }
 
                     if (Main.settings.KeyBindSettings.ClsKeyBindSettings.Reload.Enabled &&
-                        Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.Reload.Key))
+                        Main.settings.KeyBindSettings.ClsKeyBindSettings.Reload.Down)
                     {
                         __result = true;
                         return false;
                     }
 
                     if (Main.settings.KeyBindSettings.ClsKeyBindSettings.Editor.Enabled &&
-                        Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.Editor.Key))
+                        Main.settings.KeyBindSettings.ClsKeyBindSettings.Editor.Down)
                     {
                         __result = true;
                         return false;
                     }
 
                     if (Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo.Enabled &&
-                        Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo.Key))
+                        Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo.Down)
                     {
                         __result = true;
                         return false;
@@ -232,7 +232,7 @@ namespace AdofaiUtils.Tweaks
                 if (!___searchMode && __instance.controller.responsive)
                 {
                     if (Input.GetKeyDown(KeyCode.I) ||
-                        Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo.Key) &&
+                        Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo.Down &&
                         Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo.Enabled)
                     {
                         if (_infoBehavior != null)
@@ -259,21 +259,21 @@ namespace AdofaiUtils.Tweaks
 
                     if (!__instance.controller.paused)
                     {
-                        if (Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.Reload.Key) &&
+                        if (Main.settings.KeyBindSettings.ClsKeyBindSettings.Reload.Down &&
                             Main.settings.KeyBindSettings.ClsKeyBindSettings.Reload.Enabled)
                         {
                             __instance.Refresh();
                             return false;
                         }
 
-                        if (Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.Workshop.Key) &&
+                        if (Main.settings.KeyBindSettings.ClsKeyBindSettings.Workshop.Down &&
                             Main.settings.KeyBindSettings.ClsKeyBindSettings.Workshop.Enabled)
                         {
                             SteamWorkshop.OpenWorkshop();
                             return false;
                         }
 
-                        if (Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.EnterMap.Key) &&
+                        if (Main.settings.KeyBindSettings.ClsKeyBindSettings.EnterMap.Down &&
                             Main.settings.KeyBindSettings.ClsKeyBindSettings.EnterMap.Enabled)
                         {
                             if (___loadedLevelIsDeleted[___levelToSelect]) return false;
@@ -281,7 +281,7 @@ namespace AdofaiUtils.Tweaks
                             return false;
                         }
 
-                        if (Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.Editor.Key) &&
+                        if (Main.settings.KeyBindSettings.ClsKeyBindSettings.EnterMap.Down &&
                             Main.settings.KeyBindSettings.ClsKeyBindSettings.Editor.Enabled)
                         {
                             if (___loadedLevelIsDeleted[___levelToSelect]) return false;
@@ -443,7 +443,7 @@ namespace AdofaiUtils.Tweaks
                 if (___disablePlanets)
                     __instance.controller.responsive = false;
                 if (Input.GetKeyDown(KeyCode.I) ||
-                    Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo.Key) &&
+                    Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo.Down &&
                     Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo.Enabled)
                 {
                     if (_infoBehavior != null)
@@ -470,7 +470,7 @@ namespace AdofaiUtils.Tweaks
 
                 if (!__instance.controller.paused)
                 {
-                    if (Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.EnterMap.Key) &&
+                    if (Main.settings.KeyBindSettings.ClsKeyBindSettings.EnterMap.Down &&
                         Main.settings.KeyBindSettings.ClsKeyBindSettings.EnterMap.Enabled)
                     {
                         if (___loadedLevelIsDeleted[___levelToSelect]) return false;
@@ -478,7 +478,7 @@ namespace AdofaiUtils.Tweaks
                         return false;
                     }
 
-                    if (Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.Editor.Key) &&
+                    if (Main.settings.KeyBindSettings.ClsKeyBindSettings.Editor.Down &&
                         Main.settings.KeyBindSettings.ClsKeyBindSettings.Editor.Enabled)
                     {
                         if (___loadedLevelIsDeleted[___levelToSelect]) return false;
@@ -495,7 +495,7 @@ namespace AdofaiUtils.Tweaks
                     }
 
 
-                    if (Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.Reload.Key) &&
+                    if (Main.settings.KeyBindSettings.ClsKeyBindSettings.Reload.Down &&
                         Main.settings.KeyBindSettings.ClsKeyBindSettings.Reload.Enabled)
                     {
                         Invoke(_refresh, false);
@@ -508,7 +508,7 @@ namespace AdofaiUtils.Tweaks
                         return false;
                     }
 
-                    if (Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.Workshop.Key) &&
+                    if (Main.settings.KeyBindSettings.ClsKeyBindSettings.Workshop.Down &&
                         Main.settings.KeyBindSettings.ClsKeyBindSettings.Workshop.Enabled)
                     {
                         SteamWorkshop.OpenWorkshop();
