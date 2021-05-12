@@ -39,7 +39,7 @@ fs.writeFileSync('Repository.json', JSON.stringify({
         {
             Id: 'AdofaiUtils',
             Version: Info.Version,
-            DownloadUrl: `https://github.com/pikokr/AdofaiUtils/download/v${Info.Version}/${Info.Id}-${Info.Version}.zip`
+            DownloadUrl: `https://github.com/pikokr/AdofaiUtils/releases/download/v${Info.Version}/${Info.Id}-${Info.Version}.zip`
         }
     ]
 }, null, 2))
