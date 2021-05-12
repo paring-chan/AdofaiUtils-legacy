@@ -65,50 +65,54 @@ namespace AdofaiUtils.Tweaks
             {
                 if (__instance.levelEditorMode && !__instance.editor.controller.paused)
                 {
-                    if (Main.settings.KeyBindSettings.CustomPlayKeyBindSettings.Restart &&
-                        Input.GetKeyDown(KeyCode.R))
+                    if (Main.settings.KeyBindSettings.CustomPlayKeyBindSettings.Restart.Enabled &&
+                        Input.GetKeyDown(Main.settings.KeyBindSettings.CustomPlayKeyBindSettings.Restart.Key))
                     {
                         __result = true;
                         return false;
                     }
                 }
-                
+
                 if (__instance.CLSMode)
                 {
-                    if (Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo &&
-                        Input.GetKeyDown(KeyCode.I))
-                    {
-                        __result = true;
-                        return false;
-                    }
-                    
-
-                    if (Main.settings.KeyBindSettings.ClsKeyBindSettings.EnterMap &&
-                        Input.GetKeyDown(KeyCode.LeftArrow))
+                    if (Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo.Enabled &&
+                        Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo.Key))
                     {
                         __result = true;
                         return false;
                     }
 
-                    if (Main.settings.KeyBindSettings.ClsKeyBindSettings.Workshop && Input.GetKeyDown(KeyCode.W))
+
+                    if (Main.settings.KeyBindSettings.ClsKeyBindSettings.EnterMap.Enabled &&
+                        Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.EnterMap.Key))
                     {
                         __result = true;
                         return false;
                     }
 
-                    if (Main.settings.KeyBindSettings.ClsKeyBindSettings.Reload && Input.GetKeyDown(KeyCode.R))
+                    if (Main.settings.KeyBindSettings.ClsKeyBindSettings.Workshop.Enabled &&
+                        Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.Workshop.Key))
                     {
                         __result = true;
                         return false;
                     }
 
-                    if (Main.settings.KeyBindSettings.ClsKeyBindSettings.Editor && Input.GetKeyDown(KeyCode.E))
+                    if (Main.settings.KeyBindSettings.ClsKeyBindSettings.Reload.Enabled &&
+                        Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.Reload.Key))
                     {
                         __result = true;
                         return false;
                     }
 
-                    if (Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo && Input.GetKeyDown(KeyCode.I))
+                    if (Main.settings.KeyBindSettings.ClsKeyBindSettings.Editor.Enabled &&
+                        Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.Editor.Key))
+                    {
+                        __result = true;
+                        return false;
+                    }
+
+                    if (Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo.Enabled &&
+                        Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo.Key))
                     {
                         __result = true;
                         return false;
@@ -227,8 +231,9 @@ namespace AdofaiUtils.Tweaks
 
                 if (!___searchMode && __instance.controller.responsive)
                 {
-                    if (Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Escape) &&
-                        Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo)
+                    if (Input.GetKeyDown(KeyCode.I) ||
+                        Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo.Key) &&
+                        Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo.Enabled)
                     {
                         if (_infoBehavior != null)
                         {
@@ -254,27 +259,30 @@ namespace AdofaiUtils.Tweaks
 
                     if (!__instance.controller.paused)
                     {
-                        if (Input.GetKeyDown(KeyCode.R) && Main.settings.KeyBindSettings.ClsKeyBindSettings.Reload)
+                        if (Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.Reload.Key) &&
+                            Main.settings.KeyBindSettings.ClsKeyBindSettings.Reload.Enabled)
                         {
                             __instance.Refresh();
                             return false;
                         }
 
-                        if (Input.GetKeyDown(KeyCode.W) && Main.settings.KeyBindSettings.ClsKeyBindSettings.Workshop)
+                        if (Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.Workshop.Key) &&
+                            Main.settings.KeyBindSettings.ClsKeyBindSettings.Workshop.Enabled)
                         {
                             SteamWorkshop.OpenWorkshop();
                             return false;
                         }
 
-                        if (Input.GetKeyDown(KeyCode.LeftArrow) &&
-                            Main.settings.KeyBindSettings.ClsKeyBindSettings.EnterMap)
+                        if (Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.EnterMap.Key) &&
+                            Main.settings.KeyBindSettings.ClsKeyBindSettings.EnterMap.Enabled)
                         {
                             if (___loadedLevelIsDeleted[___levelToSelect]) return false;
                             __instance.EnterLevel();
                             return false;
                         }
 
-                        if (Input.GetKeyDown(KeyCode.E) && Main.settings.KeyBindSettings.ClsKeyBindSettings.Editor)
+                        if (Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.Editor.Key) &&
+                            Main.settings.KeyBindSettings.ClsKeyBindSettings.Editor.Enabled)
                         {
                             if (___loadedLevelIsDeleted[___levelToSelect]) return false;
                             string levelPath = Path.Combine(__instance.loadedLevelDirs[___levelToSelect],
@@ -288,7 +296,7 @@ namespace AdofaiUtils.Tweaks
                             __instance.editor.SwitchToEditMode();
                             return false;
                         }
-                        
+
 
                         if (Input.GetKeyDown(KeyCode.S))
                         {
@@ -306,6 +314,7 @@ namespace AdofaiUtils.Tweaks
                         {
                             Invoke(_toggleSearchMode, true);
                         }
+
                         if (Input.GetKeyDown(KeyCode.O))
                             Invoke(_incrementSortType);
                         if (Input.GetKeyDown(KeyCode.Alpha7))
@@ -399,13 +408,14 @@ namespace AdofaiUtils.Tweaks
             private static bool Prefix(scnCLS __instance, scrCamera ___camera, bool ___disablePlanets,
                 string ___levelToSelect, ref float ___holdTimer, ref float ___autoscrollTimer, bool ___changingLevel,
                 ref float ___levelTransitionTimer, ref bool ___instantSelect, string ___newSongKey,
-                ref Coroutine ___loadSongCoroutine, Dictionary<string, bool> ___loadedLevelIsDeleted, Dictionary<string, LevelData> ___loadedLevels)
+                ref Coroutine ___loadSongCoroutine, Dictionary<string, bool> ___loadedLevelIsDeleted,
+                Dictionary<string, LevelData> ___loadedLevels)
             {
                 if (_infoGameObject == null)
                 {
                     _infoGameObject = new GameObject();
                 }
-                
+
                 void Invoke(MethodBase methodBase, params object[] parameters)
                 {
                     methodBase.Invoke(__instance, parameters);
@@ -432,8 +442,9 @@ namespace AdofaiUtils.Tweaks
                 SteamWorkshop.CheckDownloadInfo();
                 if (___disablePlanets)
                     __instance.controller.responsive = false;
-                if (Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Escape) &&
-                    Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo)
+                if (Input.GetKeyDown(KeyCode.I) ||
+                    Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo.Key) &&
+                    Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo.Enabled)
                 {
                     if (_infoBehavior != null)
                     {
@@ -456,17 +467,19 @@ namespace AdofaiUtils.Tweaks
 
                     return false;
                 }
+
                 if (!__instance.controller.paused)
                 {
-                    if (Input.GetKeyDown(KeyCode.LeftArrow) &&
-                        Main.settings.KeyBindSettings.ClsKeyBindSettings.EnterMap)
+                    if (Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.EnterMap.Key) &&
+                        Main.settings.KeyBindSettings.ClsKeyBindSettings.EnterMap.Enabled)
                     {
                         if (___loadedLevelIsDeleted[___levelToSelect]) return false;
                         __instance.EnterLevel();
                         return false;
                     }
 
-                    if (Input.GetKeyDown(KeyCode.E) && Main.settings.KeyBindSettings.ClsKeyBindSettings.Editor)
+                    if (Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.Editor.Key) &&
+                        Main.settings.KeyBindSettings.ClsKeyBindSettings.Editor.Enabled)
                     {
                         if (___loadedLevelIsDeleted[___levelToSelect]) return false;
                         string levelPath = Path.Combine(__instance.loadedLevelDirs[___levelToSelect],
@@ -481,20 +494,22 @@ namespace AdofaiUtils.Tweaks
                         return false;
                     }
 
-                    
-                    if (Input.GetKeyDown(KeyCode.R) && Main.settings.KeyBindSettings.ClsKeyBindSettings.Reload)
+
+                    if (Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.Reload.Key) &&
+                        Main.settings.KeyBindSettings.ClsKeyBindSettings.Reload.Enabled)
                     {
                         Invoke(_refresh, false);
                         return false;
                     }
-                    
+
                     if (Input.GetKeyDown(KeyCode.S))
                     {
                         Invoke(_toggleSpeedTrial);
                         return false;
                     }
 
-                    if (Input.GetKeyDown(KeyCode.W) && Main.settings.KeyBindSettings.ClsKeyBindSettings.Workshop)
+                    if (Input.GetKeyDown(Main.settings.KeyBindSettings.ClsKeyBindSettings.Workshop.Key) &&
+                        Main.settings.KeyBindSettings.ClsKeyBindSettings.Workshop.Enabled)
                     {
                         SteamWorkshop.OpenWorkshop();
                         return false;
@@ -576,14 +591,16 @@ namespace AdofaiUtils.Tweaks
         internal static class ScnEditorUpdate
         {
             private static MethodBase _tryQuitToMenu = typeof(scnEditor).GetMethod("TryQuitToMenu", AccessTools.all);
-            private static MethodBase _resetCustomLevel = typeof(scrController).GetMethod("ResetCustomLevel", AccessTools.all);
+
+            private static MethodBase _resetCustomLevel =
+                typeof(scrController).GetMethod("ResetCustomLevel", AccessTools.all);
 
             private static bool Prefix(scnEditor __instance)
             {
                 bool flag1 = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl) ||
                              Input.GetKey(KeyCode.LeftCommand) || Input.GetKey(KeyCode.RightCommand);
                 bool flag2 = Input.GetKeyDown(KeyCode.Q);
-                bool flag3 = flag1 && flag2 & Main.settings.KeyBindSettings.EditorKeyBindSettings.Quit &&
+                bool flag3 = flag1 && flag2 & Main.settings.KeyBindSettings.EditorKeyBindSettings.Quit.Enabled &&
                              !__instance.controller.paused;
 
                 void Invoke(MethodBase methodBase, params object[] parameters)
@@ -607,6 +624,7 @@ namespace AdofaiUtils.Tweaks
                     {
                         Invoke(_tryQuitToMenu);
                     }
+
                     return false;
                 }
 

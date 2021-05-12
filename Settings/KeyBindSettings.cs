@@ -9,14 +9,19 @@ namespace AdofaiUtils.Settings
         [DrawFields(DrawFieldMask.Public)]
         public class CLSKeyBindSettings
         {
+            [Horizontal]
             [Draw("리로드")]
             public KeyBindSetting Reload = new KeyBindSetting(KeyCode.R);
+            [Horizontal]
             [Draw("창작마당 열기")]
             public KeyBindSetting Workshop = new KeyBindSetting(KeyCode.W);
+            [Horizontal]
             [Draw("에디터 열기")]
             public KeyBindSetting Editor = new KeyBindSetting(KeyCode.E);
+            [Horizontal]
             [Draw("맵 바로 입장")]
             public KeyBindSetting EnterMap = new KeyBindSetting(KeyCode.LeftArrow);
+            [Horizontal]
             [Draw("맵 정보 보기")]
             public KeyBindSetting MapInfo = new KeyBindSetting(KeyCode.I);
         }
@@ -24,13 +29,15 @@ namespace AdofaiUtils.Settings
         [DrawFields(DrawFieldMask.Public)]
         public class EditorKeyBindSettings
         {
+            [Horizontal]
             [Draw("에디터 나가기")]
             public KeyBindSetting Quit = new KeyBindSetting(KeyCode.Q);
         }
         
         public class CustomPlayKeyBindSettings
         {
-            [Draw("즉시 재시작(R)")] public bool Restart = true;
+            [Horizontal]
+            [Draw("즉시 재시작")] public KeyBindSetting Restart = new KeyBindSetting(KeyCode.R);
         }
     }
 
@@ -41,20 +48,25 @@ namespace AdofaiUtils.Settings
         public KeyBindSetting(KeyCode keyCode, bool defaultEnabled = true)
         {
             _keyCode = keyCode;
-            Key = new KeyBinding {keyCode = keyCode};
+            _key = new KeyBinding {keyCode = keyCode};
             Enabled = defaultEnabled;
         }
         
-        [Draw("활성화")] public bool Enabled;
+        [Draw("")] public bool Enabled;
 
-        [Draw("키 설정")] public KeyBinding Key;
+        public KeyCode Key => _key.keyCode;
+
+        [Draw("키 설정")] private KeyBinding _key;
     }
     
     [DrawFields(DrawFieldMask.Public)]
     public class KeyBindSettings
     {
-        [Draw("CLS", Collapsible = true)] public KeyBindSettingsFields.CLSKeyBindSettings ClsKeyBindSettings = new KeyBindSettingsFields.CLSKeyBindSettings();
-        [Draw("에디터", Collapsible = true)] public KeyBindSettingsFields.EditorKeyBindSettings EditorKeyBindSettings = new KeyBindSettingsFields.EditorKeyBindSettings();
-        [Draw("커스텀 레벨 플레이", Collapsible = true)] public KeyBindSettingsFields.CustomPlayKeyBindSettings CustomPlayKeyBindSettings = new KeyBindSettingsFields.CustomPlayKeyBindSettings();
+        [Header("CLS")]
+        [Draw("")] public KeyBindSettingsFields.CLSKeyBindSettings ClsKeyBindSettings = new KeyBindSettingsFields.CLSKeyBindSettings();
+        [Header("에디터")]
+        [Draw("")] public KeyBindSettingsFields.EditorKeyBindSettings EditorKeyBindSettings = new KeyBindSettingsFields.EditorKeyBindSettings();
+        [Header("커스터 레벨 플레이")]
+        [Draw("")] public KeyBindSettingsFields.CustomPlayKeyBindSettings CustomPlayKeyBindSettings = new KeyBindSettingsFields.CustomPlayKeyBindSettings();
     }
 }
