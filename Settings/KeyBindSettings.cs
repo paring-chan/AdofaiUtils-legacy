@@ -40,20 +40,27 @@ namespace AdofaiUtils.Settings
             [Draw("즉시 재시작")] public KeyBindSetting Restart = new KeyBindSetting(KeyCode.R);
         }
     }
-
+    
+    [DrawFields(DrawFieldMask.Public)]
     public class KeyBindSetting
     {
+        public KeyBindSetting()
+        {
+            Key = new KeyBinding();
+            Enabled = true;
+        }
+        
         public KeyBindSetting(KeyCode keyCode, bool defaultEnabled = true)
         {
-            _key = new KeyBinding {keyCode = keyCode};
+            Key = new KeyBinding {keyCode = keyCode};
             Enabled = defaultEnabled;
         }
         
         [Draw("")] public bool Enabled;
 
-        public bool Down => _key.Down();
+        public bool Down => Key.Down();
 
-        [Draw("키 설정")] private KeyBinding _key;
+        [Draw("키 설정")] public KeyBinding Key;
     }
     
     [DrawFields(DrawFieldMask.Public)]
