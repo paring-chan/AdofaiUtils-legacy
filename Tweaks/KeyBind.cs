@@ -231,7 +231,7 @@ namespace AdofaiUtils.Tweaks
 
                 if (!___searchMode && __instance.controller.responsive)
                 {
-                    if (Input.GetKeyDown(KeyCode.I) ||
+                    if (Input.GetKeyDown(KeyCode.Escape) ||
                         Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo.Down &&
                         Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo.Enabled)
                     {
@@ -442,7 +442,7 @@ namespace AdofaiUtils.Tweaks
                 SteamWorkshop.CheckDownloadInfo();
                 if (___disablePlanets)
                     __instance.controller.responsive = false;
-                if (Input.GetKeyDown(KeyCode.I) ||
+                if (Input.GetKeyDown(KeyCode.Escape) ||
                     Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo.Down &&
                     Main.settings.KeyBindSettings.ClsKeyBindSettings.MapInfo.Enabled)
                 {
