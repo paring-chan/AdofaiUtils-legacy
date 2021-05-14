@@ -126,7 +126,6 @@
         <Reference Include="System.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
           <HintPath>..\..\Programs\Steam\steamapps\common\A Dance of Fire and Ice\A Dance of Fire and Ice_Data\Managed\System.Configuration.dll</HintPath>
         </Reference>
-        <Reference Include="System.Core" />
         <Reference Include="System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <HintPath>..\..\Programs\Steam\steamapps\common\A Dance of Fire and Ice\A Dance of Fire and Ice_Data\Managed\System.Core.dll</HintPath>
         </Reference>
@@ -372,7 +371,7 @@
         <Reference Include="UnityEngine.XRModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
           <HintPath>..\..\Programs\Steam\steamapps\common\A Dance of Fire and Ice\A Dance of Fire and Ice_Data\Managed\UnityEngine.XRModule.dll</HintPath>
         </Reference>
-        <Reference Include="UnityModManager, Version=0.23.2.0, Culture=neutral, PublicKeyToken=null">
+        <Reference Include="UnityModManager, Version=0.23.4.0, Culture=neutral, PublicKeyToken=null">
           <HintPath>..\..\Programs\Steam\steamapps\common\A Dance of Fire and Ice\A Dance of Fire and Ice_Data\Managed\UnityModManager\UnityModManager.dll</HintPath>
         </Reference>
         <Reference Include="urecordRuntime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
