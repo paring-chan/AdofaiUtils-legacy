@@ -10,7 +10,7 @@ const { findSteamAppById } = require('find-steam-app');
 (async () => {
     rimraf.sync('Release')
     
-    cp.execSync('dotnet "C:\\Program Files\\dotnet\\sdk\\5.0.200\\MSBuild.dll" /p:Configuration=Release')
+    cp.execSync('"F:\\Programs\\JetBrains Rider 2021.1.2\\tools\\MSBuild\\Current\\Bin\\MSBuild.exe" /p:Configuration=Release')
 
     fs.mkdirSync('Release')
 
