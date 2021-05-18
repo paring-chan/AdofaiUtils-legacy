@@ -151,12 +151,12 @@ namespace AdofaiUtils.Tweaks
                     new[]
                     {
                         "제목",
-                        map.artist + " - " + map.song
+                        RDUtils.RemoveRichTags(map.artist + " - " + map.song)
                     },
                     new[]
                     {
                         "제작자",
-                        map.author
+                        RDUtils.RemoveRichTags(map.author)
                     },
                     new[]
                     {
@@ -599,7 +599,7 @@ namespace AdofaiUtils.Tweaks
             {
                 bool flag1 = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl) ||
                              Input.GetKey(KeyCode.LeftCommand) || Input.GetKey(KeyCode.RightCommand);
-                bool flag2 = Input.GetKeyDown(KeyCode.Q);
+                bool flag2 = Main.settings.KeyBindSettings.EditorKeyBindSettings.Quit.Down;
                 bool flag3 = flag1 && flag2 & Main.settings.KeyBindSettings.EditorKeyBindSettings.Quit.Enabled &&
                              !__instance.controller.paused;
 
@@ -628,7 +628,7 @@ namespace AdofaiUtils.Tweaks
                     return false;
                 }
 
-                bool flag4 = Input.GetKeyDown(KeyCode.R) && !flag1;
+                bool flag4 = Main.settings.KeyBindSettings.CustomPlayKeyBindSettings.Restart.Down && !flag1;
 
                 if (flag4)
                 {
